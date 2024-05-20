@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../NextAuthentication/Athentication/.idea/Athentication.iml" filepath="$PROJECT_DIR$/../NextAuthentication/Athentication/.idea/Athentication.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/cft-next.iml" filepath="$PROJECT_DIR$/.idea/cft-next.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../cft-problem-lists/.idea/cft-problem-lists.iml" filepath="$PROJECT_DIR$/../cft-problem-lists/.idea/cft-problem-lists.iml" />
     </modules>
   </component>
 </project>

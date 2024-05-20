@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import PageHeading from "@/components/Navbar/PageHeading";
+import { checkUser } from "@/actions/auth-actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,14 +18,19 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
-export default function MainLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  await checkUser();
+
   return (
-    <html lang="en" className={"dark"}>
-      <body className={inter.className}>{children}</body>
-    </html>
+    <>
+      <PageHeading />
+      <main className={"flex flex-col mt-16 h-[90%] overflow-y-visible"}>
+        {children}
+      </main>
+    </>
   );
 }
