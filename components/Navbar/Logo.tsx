@@ -3,7 +3,7 @@ import Link from "next/link";
 const Logo = () => {
   // Temp logo from https://logoipsum.com/
   return (
-    <Link href={"/"}>
+    <Link href={"/home"}>
       <div className={"flex items-center"}>
         <svg
           width="24"
