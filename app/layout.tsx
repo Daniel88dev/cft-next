@@ -23,7 +23,11 @@ export default function MainLayout({
 }>) {
   return (
     <html lang="en" className={"dark"}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div></div>
+
+        {children}
+      </body>
     </html>
   );
 }
