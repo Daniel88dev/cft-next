@@ -4,18 +4,25 @@ import Th from "@/components/UI/Tables/Th";
 import { loadProblemList } from "@/actions/problemList-actions";
 import { ProblemListDataType } from "@/components/ProblemList/ProblemListTypes";
 import TableRow from "@/components/UI/Tables/TableRow";
+import TableStages from "@/components/ProblemList/components/TableStages";
+import GradeCell from "@/components/ProblemList/components/GradeCell";
+import ItemCell from "@/components/ProblemList/components/ItemCell";
 
 const ProblemListTable = async ({
   params,
 }: {
-  params: { projectId: string; problemListId: string };
+  params: { projectSlug: string; problemListId: string };
 }) => {
-  const { projectId, problemListId } = params;
+  const { projectSlug, problemListId } = params;
 
   const problemListData: ProblemListDataType[] = await loadProblemList(
-    +projectId,
+    projectSlug,
     problemListId
   );
+
+  if (problemListData.length === 0) {
+    return <div>No problem list data found</div>;
+  }
 
   //todo add pictures to problems
 
@@ -41,18 +48,18 @@ const ProblemListTable = async ({
       <tbody>
         {problemListData.map((problem) => (
           <TableRow key={problem.id} height={"h-48"}>
-            <td>{problem.item}</td>
-            <td>stages</td>
+            <ItemCell item={problem.item} problemId={problem.id} />
+            <TableStages stages={problem.stages} />
             <td>{problem.picture}</td>
             <td>{problem.problemName}</td>
             <td>{problem.problemDescription}</td>
             <td>{problem.actionsDone}</td>
             <td>{problem.countermeasure}</td>
-            <td>{problem.grade}</td>
+            <GradeCell value={problem.grade} />
             <td>{problem.classItem.name}</td>
             <td>{problem.actionItem.name}</td>
             <td>{problem.statusItem.name}</td>
-            <td>responsible</td>
+            <td>{problem.responsiblePerson}</td>
             <td>{problem.date?.getDate()}</td>
             <td>listeners</td>
             <td>subscribe</td>

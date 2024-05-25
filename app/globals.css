@@ -111,3 +111,23 @@
     transform: rotate(360deg);
   }
 }
+
+.leftright {
+  transform: translateY(15px) rotate(45deg);
+}
+
+.rightleft {
+  transform: translateY(13px) rotate(-45deg);
+}
+
+.close-container:hover .leftright {
+  transform: translateY(15px) rotate(-45deg);
+  background-color: red;
+}
+.close-container:hover .rightleft {
+  transform: translateY(13px) rotate(45deg);
+  background-color: red;
+}
+.close-container:hover .close {
+  opacity: 1;
+}

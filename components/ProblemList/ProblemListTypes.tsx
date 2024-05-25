@@ -1,5 +1,6 @@
 export type ProjectDataProblemListType = {
   projectId: number;
+  projectSlug: string;
   projectName: string;
   activeStage: string;
   problemLists: string[];
@@ -19,14 +20,7 @@ type ListenersType = {
 export type ProblemListDataType = {
   id: number;
   item: number;
-  stages: {
-    stage1: boolean;
-    stage2: boolean;
-    stage3: boolean;
-    stage4: boolean;
-    stage5: boolean;
-    stage6: boolean;
-  };
+  stages: string[];
   picture: string;
   problemName: string;
   problemDescription: string;
@@ -36,6 +30,7 @@ export type ProblemListDataType = {
   classItem: ActionType;
   actionItem: ActionType;
   statusItem: ActionType;
+  responsiblePerson: string;
   date: Date | null;
   listeners: ListenersType[];
 };

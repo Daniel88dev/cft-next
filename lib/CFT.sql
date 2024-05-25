@@ -28,6 +28,7 @@ CREATE TABLE session (
 CREATE TABLE projects (
   project_id SERIAL PRIMARY KEY,
   project_name VARCHAR(10),
+    project_slug VARCHAR(10),
   project_security VARCHAR(10),
   disabled bool,
   active_stage VARCHAR(10),
@@ -256,9 +257,9 @@ INSERT INTO users (user_id, user_name, email, image, designation_id, password, a
 VALUES (18105061, 'Daniel Hrynusiw', 'daniel.hrynusiw@hyundai-motor.cz', '', 1, '90192e7e39f7210a3d4d07b96b455fc0d89164258f9f05356fdc2ca6ce980a7d5444faaa11b5968580d1540ab1b67e50e346256f93e3f87c35bb5d8ee518bc12:d4fab83cdafec208a064d9f5f41f8d02',
         TRUE, TRUE, TRUE, TRUE, '2024-05-19 17:46:46.723516');
 
-INSERT INTO projects (project_name, project_security, disabled, active_stage, extra_options)
-VALUES ('SX2e', 'PUBLIC', FALSE, 'LP2', 5),
-       ('NX4e', 'SECURED', FALSE, 'M', 3);
+INSERT INTO projects (project_name, project_slug, project_security, disabled, active_stage, extra_options)
+VALUES ('SX2e', 'sx2e', 'PUBLIC', FALSE, 'LP2', 5),
+       ('NX4e', 'nx4e', 'SECURED', FALSE, 'M', 3);
 
 INSERT INTO stages (project_id, stage_name, stage_order)
 VALUES (1, 'Proto', 1),

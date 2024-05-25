@@ -4,14 +4,15 @@ import {
   getInitialProblemListData,
   getProblemListData,
 } from "@/lib/problemLists";
+import { verifyAuth } from "@/lib/auth";
 
 export const loadInitialProblemListsData = async () => {
   return await getInitialProblemListData();
 };
 
 export const loadProblemList = async (
-  projectId: number,
+  projectSlug: string,
   problemList: string
 ) => {
-  return await getProblemListData(projectId, problemList);
+  return await getProblemListData(projectSlug, problemList);
 };

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { twMerge } from "tailwind-merge";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +19,18 @@ export const viewport: Viewport = {
 
 export default function MainLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="en" className={"dark"}>
-      <body className={inter.className}>
-        <div></div>
-
-        {children}
+      <body
+        className={twMerge(inter.className, "flex flex-col overflow-y-visible")}
+      >
+        <div id={"modal"}>{modal}</div>
+        <div id={"root"}>{children}</div>
       </body>
     </html>
   );

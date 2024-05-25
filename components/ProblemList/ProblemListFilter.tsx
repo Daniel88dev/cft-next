@@ -24,15 +24,16 @@ const ProblemListFilter = ({
   });
   const router = useRouter();
   const projectsArray = data.map((project) => {
-    return { label: project.projectName, value: project.projectId };
+    return { label: project.projectName, value: project.projectSlug };
   });
 
   //todo remove any
   const onProjectSelect = (selected: OptionType | null) => {
     if (selected) {
       const findProject = data.find((project) => {
-        return project.projectId === selected.value;
+        return project.projectSlug === selected.value;
       });
+      console.log(findProject);
       const lists: OptionType[] = findProject!.problemLists.map((list) => {
         return { label: list, value: list };
       });
