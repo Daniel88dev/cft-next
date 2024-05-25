@@ -125,14 +125,52 @@ export async function getProblemData(problemId: number) {
     `
 SELECT p.id, p.item_id, p.stage1, p.stage2, p.stage3, p.stage4, p.stage5, p.stage6, p.problem_name,
        p.problem_description, p.actions_done, p.countermeasure, p.class_id, p.action_id, p.status_id,
-       p.grade, p.date, u.user_name, d.designation_name
+       p.grade, p.date, u.user_name, d.designation_name, pl.problemlist_name,
+       cl.class_list_name, al.action_name, sl.status_name, u.id AS user_id
 FROM problems AS p
 LEFT JOIN users AS u ON p.responsible_person = u.id
 LEFT JOIN designation AS d ON d.id = u.designation_id
+LEFT JOIN problem_lists AS pl ON pl.problemlist_id = p.problemlist_id
+LEFT JOIN class_list AS cl ON cl.id = p.class_id
+LEFT JOIN action_list AS al ON al.id = p.action_id
+LEFT JOIN status_list AS sl ON sl.id = p.status_id
 WHERE p.id = $1
   `,
     [problemId]
   );
 
-  return { problemData: problemData.rows };
+  return problemData.rows[0];
+}
+
+export async function getStageNames(projectSlug: string) {
+  const stages = await pool.query(
+    `
+  SELECT s.stage_name
+  FROM projects AS p
+  LEFT JOIN stages AS s on p.project_id = s.project_id
+  WHERE project_slug = $1
+  ORDER BY s.stage_order
+  `,
+    [projectSlug]
+  );
+
+  return {
+    stage1: stages.rows[0].stage_name as string,
+    stage2: stages.rows[1].stage_name as string,
+    stage3: stages.rows[2].stage_name as string,
+    stage4: stages.rows[3].stage_name as string,
+    stage5: stages.rows[4].stage_name as string,
+    stage6: stages.rows[5].stage_name as string,
+  };
+}
+
+export async function getUsersForProject(projectSlug: string) {
+  //todo apply searching users from project_accesslist
+  const userData = await pool.query(`
+  SELECT u.id, u.user_name, d.designation_name
+  FROM users AS u 
+  LEFT JOIN designation AS d ON u.designation_id = d.id
+  `);
+
+  return userData.rows;
 }

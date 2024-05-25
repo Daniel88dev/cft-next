@@ -34,3 +34,22 @@ export type ProblemListDataType = {
   date: Date | null;
   listeners: ListenersType[];
 };
+
+export type RespDataType = {
+  classItemId: number;
+  classItemName: string;
+  actionId: number;
+  actionName: string;
+  statusId: number;
+  statusName: string;
+  dateRequired: Date;
+};
+
+export type StageNamesType = {
+  stage1: string;
+  stage2: string;
+  stage3: string;
+  stage4: string;
+  stage5: string;
+  stage6: string;
+};
