@@ -1,7 +1,27 @@
-const ProblemEditPageInter = () => {
+import EditProblem from "@/components/ProblemList/EditProblem";
+import Modal from "@/components/Modal/Modal";
+
+export type ParamsProblemListEditProps = {
+  projectSlug: string;
+  problemListId: string;
+  problemId: number;
+};
+
+const ProblemEditPageInter = ({
+  params,
+}: {
+  params: ParamsProblemListEditProps;
+}) => {
+  console.log(params);
   return (
     <>
-      <h1>Problem List Edit- intercepted</h1>
+      <Modal
+        title={"Edit Problem"}
+        pathName={"edit"}
+        optionalPath={params.problemId}
+      >
+        <EditProblem params={params} />
+      </Modal>
     </>
   );
 };

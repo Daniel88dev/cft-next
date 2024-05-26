@@ -9,7 +9,7 @@ type ModalProps = {
   title: string;
   children: ReactNode;
   pathName: string;
-  optionalPath?: string | undefined;
+  optionalPath?: string | number | undefined;
 };
 
 const Modal = ({
@@ -54,13 +54,13 @@ const Modal = ({
 
   return (
     <>
-      {checkDisplayModal() && (
-        <div
-          onClick={onModalClose}
-          className={
-            "z-30 fixed top-0 left-0 w-full h-screen flex justify-center items-center backdrop-blur-md"
-          }
-        >
+      <div
+        onClick={onModalClose}
+        className={
+          "z-30 fixed top-0 left-0 w-full h-screen flex justify-center items-center backdrop-blur-sm"
+        }
+      >
+        {checkDisplayModal() && (
           <motion.dialog
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,8 +81,8 @@ const Modal = ({
               <div className={"flex overflow-visible"}>{children}</div>
             </div>
           </motion.dialog>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

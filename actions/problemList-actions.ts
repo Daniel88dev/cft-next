@@ -7,10 +7,15 @@ import {
   getStageNames,
   getUsersForProject,
 } from "@/lib/problemLists";
-import { verifyAuth } from "@/lib/auth";
-import { getClassesForProject } from "@/lib/responsibiltyItems";
 import {
-  RespDataType,
+  getClassDataForProject,
+  getRespDataForProject,
+} from "@/lib/responsibiltyItems";
+import {
+  ClassDataType,
+  ProblemDataForEdit,
+  RespType,
+  RespUsers,
   StageNamesType,
 } from "@/components/ProblemList/ProblemListTypes";
 
@@ -29,7 +34,7 @@ export const loadProblemEditData = async (
   problemId: number,
   projectSlug: string
 ) => {
-  const resposnsibilityData = await getClassesForProject(projectSlug);
+  const resposnsibilityData = await getRespDataForProject(projectSlug);
 
   const problemData = await getProblemData(problemId);
 
@@ -37,28 +42,35 @@ export const loadProblemEditData = async (
 
   const users = await getUsersForProject(projectSlug);
 
-  const processedUsers = users.map((user) => {
+  const classData = await getClassDataForProject(projectSlug);
+
+  const processedUsers: RespUsers[] = users.map((user) => {
     return {
       userId: user.id,
-      userName: user.user_name,
+      userName: `${user.user_name} - ${user.designation_name}`,
     };
   });
 
-  const processedRespData: RespDataType[] = resposnsibilityData.map(
-    (single) => {
-      return {
-        classItemId: single.class_id,
-        classItemName: single.class_list_name,
-        actionId: single.action_id,
-        actionName: single.action_name,
-        statusId: single.status_id,
-        statusName: single.status_name,
-        dateRequired: single.require_date,
-      };
-    }
-  );
+  const processedClassData: ClassDataType[] = classData.map((record) => {
+    return {
+      classId: record.id,
+      classListName: record.class_list_name,
+    };
+  });
 
-  const processedProblemData = {
+  const processedRespData: RespType[] = resposnsibilityData.map((single) => {
+    return {
+      classItemId: single.class_id,
+      classItemName: single.class_list_name,
+      actionId: single.action_id,
+      actionName: single.action_name,
+      statusId: single.status_id,
+      statusName: single.status_name,
+      dateRequired: single.require_date,
+    };
+  });
+
+  const processedProblemData: ProblemDataForEdit = {
     problemId: problemData.id,
     problemItem: problemData.item_id,
     problemListName: problemData.problemlist_name,
@@ -72,14 +84,16 @@ export const loadProblemEditData = async (
     problemDescription: problemData.problem_description,
     actionsDone: problemData.actions_done,
     counterMeasure: problemData.countermeasure,
-    classItemId: problemData.class_id,
-    classItemName: problemData.class_list_name,
-    actionId: problemData.action_id,
-    actionName: problemData.action_name,
-    statusId: problemData.status_id,
-    statusName: problemData.status_name,
+    respDataSelection: {
+      classItemId: problemData.class_id,
+      classItemName: problemData.class_list_name,
+      actionId: problemData.action_id,
+      actionName: problemData.action_name,
+      statusId: problemData.status_id,
+      statusName: problemData.status_name,
+      date: problemData.date,
+    },
     grade: problemData.grade,
-    date: problemData.date,
     responsiblePersonId: problemData.user_id,
     responsiblePersonName: `${problemData.user_name} - ${problemData.designation_name}`,
   };
@@ -88,5 +102,6 @@ export const loadProblemEditData = async (
     users: processedUsers,
     respData: processedRespData,
     problemData: processedProblemData,
+    classData: processedClassData,
   };
 };
