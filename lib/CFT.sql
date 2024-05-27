@@ -28,6 +28,7 @@ CREATE TABLE session (
 CREATE TABLE projects (
   project_id SERIAL PRIMARY KEY,
   project_name VARCHAR(10),
+    project_slug VARCHAR(10),
   project_security VARCHAR(10),
   disabled bool,
   active_stage VARCHAR(10),
@@ -147,7 +148,8 @@ CREATE TABLE project_responsibilities (
   project_id INT NOT NULL REFERENCES projects (project_id),
   class_id INT NOT NULL REFERENCES class_list (id),
   action_id INT NOT NULL REFERENCES action_list (id),
-  status_id INT NOT NULL REFERENCES status_list (id)
+  status_id INT NOT NULL REFERENCES status_list (id),
+    require_date BOOLEAN NOT NULL
 );
 
 CREATE TABLE problems (
@@ -170,7 +172,7 @@ CREATE TABLE problems (
   action_id INT NOT NULL REFERENCES action_list (id),
   status_id INT NOT NULL REFERENCES status_list (id),
   responsible_person INT NOT NULL REFERENCES users (id),
-  date DATE,
+  date DATE NULL,
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp DEFAULT CURRENT_TIMESTAMP
 );
@@ -250,3 +252,87 @@ CREATE TABLE messages (
 );
 
 INSERT INTO designation (designation_name) VALUES ('NEW');
+
+INSERT INTO users (user_id, user_name, email, image, designation_id, password, active, security, is_admin, is_super_admin, created_at)
+VALUES (18105061, 'Daniel Hrynusiw', 'daniel.hrynusiw@hyundai-motor.cz', '', 1, '90192e7e39f7210a3d4d07b96b455fc0d89164258f9f05356fdc2ca6ce980a7d5444faaa11b5968580d1540ab1b67e50e346256f93e3f87c35bb5d8ee518bc12:d4fab83cdafec208a064d9f5f41f8d02',
+        TRUE, TRUE, TRUE, TRUE, '2024-05-19 17:46:46.723516');
+
+INSERT INTO projects (project_name, project_slug, project_security, disabled, active_stage, extra_options)
+VALUES ('SX2e', 'sx2e', 'PUBLIC', FALSE, 'LP2', 5),
+       ('NX4e', 'nx4e', 'SECURED', FALSE, 'M', 3);
+
+INSERT INTO stages (project_id, stage_name, stage_order)
+VALUES (1, 'Proto', 1),
+       (1, 'SP1', 2),
+       (1, 'LP1', 3),
+       (1, 'LP2', 4),
+       (1, 'M', 5),
+       (1, 'SOP', 6),
+       (2, 'Proto', 1),
+       (2, 'SP1', 2),
+       (2, 'LP1', 3),
+       (2, 'LP2', 4),
+       (2, 'M', 5),
+       (2, 'SOP', 6);
+
+
+INSERT INTO problem_lists (problemlist_name, type, project_id)
+VALUES ('ELE', 'BASIC', 1),
+       ('EXT', 'BASIC', 1),
+       ('INT', 'BASIC', 1),
+       ('ELE', 'BASIC', 2),
+       ('MOV', 'BASIC', 2);
+
+INSERT INTO class_list (class_list_name)
+VALUES ('Design'), ('Part'), ('Workability'), ('Equipment');
+
+INSERT INTO action_list (action_name)
+VALUES ('U/Consideration'), ('Tryout'), ('EO plan'), ('EO issued'), ('W&S (keep)'), ('C/M'), ('Improved');
+
+INSERT INTO status_list (status_name)
+VALUES ('Open'), ('C/M'), ('Closed');
+
+INSERT INTO project_responsibilities (project_id, class_id, action_id, status_id, require_date)
+VALUES (1, 1, 1, 1, FALSE),
+       (1, 1, 2, 2, TRUE),
+       (1, 1, 3, 2, TRUE),
+       (1, 1, 4, 2, TRUE),
+       (1, 1, 5, 3, TRUE),
+       (1, 1, 7, 3, TRUE),
+       (1, 2, 1, 1, FALSE),
+       (1, 2, 2, 2, TRUE),
+       (1, 2, 5, 1, TRUE),
+       (1, 2, 6, 2, TRUE),
+       (1, 2, 7, 3, TRUE),
+       (1, 3, 1, 1, FALSE),
+       (1, 3, 2, 2, TRUE),
+       (1, 3, 4, 2, TRUE),
+       (1, 3, 5, 3, TRUE),
+       (1, 3, 6, 2, TRUE),
+       (1, 3, 7, 3, TRUE),
+       (1, 4, 1, 1, FALSE),
+       (1, 4, 6, 2, TRUE),
+       (1, 4, 7, 3, TRUE),
+(2, 1, 1, 1, FALSE),
+(2, 1, 2, 2, TRUE),
+(2, 1, 3, 2, TRUE),
+(2, 1, 4, 2, TRUE),
+(2, 1, 5, 3, TRUE),
+(2, 1, 7, 3, TRUE),
+(2, 2, 1, 1, FALSE),
+(2, 2, 2, 2, TRUE),
+(2, 2, 5, 1, TRUE),
+(2, 2, 6, 2, TRUE),
+(2, 2, 7, 3, TRUE),
+(2, 3, 1, 1, FALSE),
+(2, 3, 2, 2, TRUE),
+(2, 3, 4, 2, TRUE),
+(2, 3, 5, 3, TRUE),
+(2, 3, 6, 2, TRUE),
+(2, 3, 7, 3, TRUE),
+(2, 4, 1, 1, FALSE),
+(2, 4, 6, 2, TRUE),
+(2, 4, 7, 3, TRUE);
+
+INSERT INTO problems (item_id, project_id, problemlist_id, stage1, stage2, stage3, stage4, stage5, stage6, problem_name, problem_description, actions_done, countermeasure, grade, class_id, action_id, status_id, responsible_person, date)
+VALUES (1, 1, 1, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, 'Testing First problem', 'Description for first problem', 'Actions done to prevent problem', 'Countermeasure to improve related problem', 'S', 1, 1, 1, 1, NULL);

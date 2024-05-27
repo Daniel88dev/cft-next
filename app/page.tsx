@@ -1,6 +1,6 @@
 "use server";
 
-import { WelcomePage } from "@/components/Admin/WelcomePage/WelcomePage";
+import { WelcomePage } from "@/components/WelcomePage/WelcomePage";
 import { verifyAuth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
