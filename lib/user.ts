@@ -15,7 +15,7 @@ export async function createUser(
   password: string
 ) {
   const registrationResult = await pool.query(
-    "INSERT INTO users(user_id, user_name, email, image, password) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+    "INSERT INTO users(id, user_name, email, image, password) VALUES ($1, $2, $3, $4, $5) RETURNING id",
     [userId, userName, email, "", password]
   );
   return registrationResult.rows[0].id;

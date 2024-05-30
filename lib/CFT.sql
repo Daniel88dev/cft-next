@@ -253,7 +253,7 @@ CREATE TABLE messages (
 
 INSERT INTO designation (designation_name) VALUES ('NEW');
 
-INSERT INTO users (user_id, user_name, email, image, designation_id, password, active, security, is_admin, is_super_admin, created_at)
+INSERT INTO users (id, user_name, email, image, designation_id, password, active, security, is_admin, is_super_admin, created_at)
 VALUES (18105061, 'Daniel Hrynusiw', 'daniel.hrynusiw@hyundai-motor.cz', '', 1, '90192e7e39f7210a3d4d07b96b455fc0d89164258f9f05356fdc2ca6ce980a7d5444faaa11b5968580d1540ab1b67e50e346256f93e3f87c35bb5d8ee518bc12:d4fab83cdafec208a064d9f5f41f8d02',
         TRUE, TRUE, TRUE, TRUE, '2024-05-19 17:46:46.723516');
 

@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
   const user = await verifyAuth();
-  console.log(user);
 
   if (user.user) {
     redirect("/home");
