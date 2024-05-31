@@ -27,7 +27,6 @@ const ProblemListFilter = ({
     return { label: project.projectName, value: project.projectSlug };
   });
 
-  //todo remove any
   const onProjectSelect = (selected: OptionType | null) => {
     if (selected) {
       const findProject = data.find((project) => {
