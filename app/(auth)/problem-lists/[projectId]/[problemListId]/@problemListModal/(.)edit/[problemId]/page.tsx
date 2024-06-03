@@ -12,7 +12,6 @@ const ProblemEditPageInter = ({
 }: {
   params: ParamsProblemListEditProps;
 }) => {
-  console.log(params);
   return (
     <>
       <Modal
