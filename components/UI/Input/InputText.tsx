@@ -1,7 +1,6 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 import { twMerge } from "tailwind-merge";
-import { className } from "postcss-selector-parser";
 
 interface InputText
   extends DetailedHTMLProps<

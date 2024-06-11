@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, forwardRef, TextareaHTMLAttributes } from "react";
+import { DetailedHTMLProps, TextareaHTMLAttributes } from "react";
 
 interface InputTextAreaType
   extends DetailedHTMLProps<

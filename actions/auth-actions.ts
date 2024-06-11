@@ -61,7 +61,6 @@ export const signup = async (
     const id = await createUser(userId, userName, email, hashedPassword);
     await createAuthSession(id);
   } catch (error) {
-    console.log(error);
     return {
       errors: {
         error: "Could not register new user. Contact administrator.",

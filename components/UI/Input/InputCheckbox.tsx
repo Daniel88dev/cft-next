@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, forwardRef, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 interface InputCheckboxType
   extends DetailedHTMLProps<

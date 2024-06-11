@@ -2,10 +2,8 @@
 import { useFormState } from "react-dom";
 
 import InputText from "@/components/UI/Input/InputText";
-import FilledButton from "@/components/UI/Button/FilledButton";
 
-import { login, PrevStateSignup, signup } from "@/actions/auth-actions";
-import { useState } from "react";
+import { PrevStateSignup, signup } from "@/actions/auth-actions";
 import LoginButton from "@/components/Authentication/LoginButton";
 
 const RegisterPage = () => {
